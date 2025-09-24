@@ -8,7 +8,8 @@ const Departamentos = () => {
   const [departamentos, setDepartamentos] = useState([])
   const [departamento, setDepartamento] = useState({
     idDepartamento: "",
-    departamento: ""
+    departamento: "",
+    salario: ""
   })
 
   const [verModal, setVerModal] = useState(false)
@@ -60,7 +61,7 @@ const Departamentos = () => {
 
   const cerrarModal = () => {
     setVerModal(false)
-    setDepartamento({ idDepartamento: "", departamento: "" })
+    setDepartamento({ idDepartamento: "", departamento: "", salario: "" })
     setModo("agregar")
   }
 
@@ -90,7 +91,10 @@ const Departamentos = () => {
         </thead>
         <tbody>
           {departamentos.map((dep) => (
-            <tr key={dep.idDepartamento} className="text-center odd:bg-gray-50 even:bg-white hover:bg-blue-50 transition">
+            <tr
+              key={dep.idDepartamento}
+              className="text-center odd:bg-gray-50 even:bg-white hover:bg-blue-50 transition"
+            >
               <td className="px-4 py-2">{dep.departamento}</td>
               <td className="px-4 py-2">{dep.salario}</td>
               <td className="px-4 py-2 text-center space-x-2">
@@ -120,21 +124,24 @@ const Departamentos = () => {
               {modo === "agregar" ? "Agregar departamento" : "Editar departamento"}
             </h2>
             <form onSubmit={handleSubmit} className="space-y-4">
-              <input
-                type="number"
-                name="idDepartamento"
-                value={departamento.departamento}
-                onChange={handleChange}
-                placeholder="ID Departamento"
-                className="border p-3 w-full rounded-lg focus:ring-2 focus:ring-blue-400 outline-none shadow-sm"
-                disabled={modo === "editar"}
-              />
+              {/* Nombre del departamento */}
               <input
                 type="text"
                 name="departamento"
-                value={departamento.salario}
+                value={departamento.departamento}
                 onChange={handleChange}
                 placeholder="Nombre del departamento"
+                className="border p-3 w-full rounded-lg focus:ring-2 focus:ring-blue-400 outline-none shadow-sm"
+                disabled={modo === "editar"}
+              />
+
+              {/* Salario */}
+              <input
+                type="number"
+                name="salario"
+                value={departamento.salario}
+                onChange={handleChange}
+                placeholder="Salario"
                 className="border p-3 w-full rounded-lg focus:ring-2 focus:ring-blue-400 outline-none shadow-sm"
               />
 
