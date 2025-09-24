@@ -31,6 +31,7 @@ public class SecurityConfig {
 
         return httpSecurity
                 .csrf(csrf -> csrf.disable())
+                .cors(cors -> {})
                 .httpBasic(Customizer.withDefaults())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(http -> {
@@ -40,15 +41,15 @@ public class SecurityConfig {
 
                     // Departamento
                     http.requestMatchers(HttpMethod.GET, "/departamento").hasAnyRole("USER", "ADMIN");
-                    http.requestMatchers(HttpMethod.POST, "/departamento").hasRole("ADMIN");
-                    http.requestMatchers(HttpMethod.PUT, "/departamento").hasRole("ADMIN");
-                    http.requestMatchers(HttpMethod.DELETE, "/departamento/**").hasRole("ADMIN");
+                    http.requestMatchers(HttpMethod.POST, "/departamento").hasAnyRole("USER", "ADMIN");
+                    http.requestMatchers(HttpMethod.PUT, "/departamento").hasAnyRole("USER", "ADMIN");
+                    http.requestMatchers(HttpMethod.DELETE, "/departamento/**").hasAnyRole("USER", "ADMIN");
 
                     // Trabajadores
                     http.requestMatchers(HttpMethod.GET, "/trabajador").hasAnyRole("USER", "ADMIN");
-                    http.requestMatchers(HttpMethod.GET, "/trabajador").hasRole("ADMIN");
-                    http.requestMatchers(HttpMethod.GET, "/trabajador").hasRole("ADMIN");
-                    http.requestMatchers(HttpMethod.GET, "/trabajador").hasRole("ADMIN");
+                    http.requestMatchers(HttpMethod.POST, "/trabajador").hasAnyRole("USER", "ADMIN");
+                    http.requestMatchers(HttpMethod.PUT, "/trabajador").hasAnyRole("USER", "ADMIN");
+                    http.requestMatchers(HttpMethod.DELETE, "/trabajador/**").hasAnyRole("USER", "ADMIN");
 
                     // Authorization
 
